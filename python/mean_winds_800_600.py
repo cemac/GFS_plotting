@@ -99,7 +99,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["UGRD_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["UGRD_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -197,7 +197,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   u1 = analysis.variables["UGRD_P0_L100_GLL0"][lev2_index:lev1_index,:,:]
+   u1 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev2_index:lev1_index,:,:]
    u_temp1 = np.mean(u1[:,lat_box1:lat_box2,0:lon_box1], axis = 0)
    u_temp2 = np.mean(u1[:,lat_box1:lat_box2,lon_box2:lon_box3], axis = 0)
    u = np.concatenate((u_temp2,u_temp1),axis=1)
@@ -205,7 +205,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del u_temp1
    del u_temp2
 
-   v1 = analysis.variables["VGRD_P0_L100_GLL0"][lev2_index:lev1_index,:,:]
+   v1 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev2_index:lev1_index,:,:]
    v_temp1 = np.mean(v1[:,lat_box1:lat_box2,0:lon_box1], axis=0)
    v_temp2 = np.mean(v1[:,lat_box1:lat_box2,lon_box2:lon_box3], axis = 0)
    v = np.concatenate((v_temp2,v_temp1),axis=1)
@@ -215,11 +215,11 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
    
-   u1 = analysis.variables["UGRD_P0_L100_GLL0"][lev2_index:lev1_index,:,:]
+   u1 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev2_index:lev1_index,:,:]
    u = np.mean(u1[:,lat_box1:lat_box2,lon_box1:lon_box2], axis = 0)
    del u1
 
-   v1 = analysis.variables["VGRD_P0_L100_GLL0"][lev2_index:lev1_index,:,:]
+   v1 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev2_index:lev1_index,:,:]
    v = np.mean(v1[:,lat_box1:lat_box2,lon_box1:lon_box2], axis = 0)
    del v1
 

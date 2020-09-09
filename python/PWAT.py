@@ -174,7 +174,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][:,:]
+   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][0,:,:]
    PWAT_temp1 = PWAT1[lat_box1:lat_box2,0:lon_box1]
    PWAT_temp2 = PWAT1[lat_box1:lat_box2,lon_box2:lon_box3]
    PWAT = np.concatenate((PWAT_temp2,PWAT_temp1),axis=1)
@@ -184,7 +184,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][:,:]
+   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][0,:,:]
    PWAT = PWAT1[lat_box1:lat_box2,lon_box1:lon_box2]
    del PWAT1
 

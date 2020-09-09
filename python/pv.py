@@ -120,7 +120,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["UGRD_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["UGRD_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -220,7 +220,7 @@ lev_index_hi = lev_index+1
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   u1 = analysis.variables["UGRD_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   u1 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    u_temp1 = u1[:,lat_box1:lat_box2,0:lon_box1]
    u_temp2 = u1[:,lat_box1:lat_box2,lon_box2:lon_box3]
    u = np.concatenate((u_temp2,u_temp1),axis=2)
@@ -228,7 +228,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del u_temp1
    del u_temp2
 
-   v1 = analysis.variables["VGRD_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   v1 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    v_temp1 = v1[:,lat_box1:lat_box2,0:lon_box1]
    v_temp2 = v1[:,lat_box1:lat_box2,lon_box2:lon_box3]
    v = np.concatenate((v_temp2,v_temp1),axis=2)
@@ -236,7 +236,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del v_temp1
    del v_temp2
 
-   t1 = analysis.variables["TMP_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   t1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    t_temp1 = t1[:,lat_box1:lat_box2,0:lon_box1]
    t_temp2 = t1[:,lat_box1:lat_box2,lon_box2:lon_box3]
    t = np.concatenate((t_temp2,t_temp1),axis=2)
@@ -244,7 +244,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del t_temp1
    del t_temp2
 
-   avort1 = analysis.variables["ABSV_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   avort1 = analysis.variables["ABSV_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    avort_temp1 = avort1[:,lat_box1:lat_box2,0:lon_box1]
    avort_temp2 = avort1[:,lat_box1:lat_box2,lon_box2:lon_box3]
    avort = np.concatenate((avort_temp2,avort_temp1),axis=2)
@@ -254,19 +254,19 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   u1 = analysis.variables["UGRD_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   u1 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    u = u1[:,lat_box1:lat_box2,lon_box1:lon_box2]
    del u1
 
-   v1 = analysis.variables["VGRD_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   v1 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    v = v1[:,lat_box1:lat_box2,lon_box1:lon_box2]
    del v1
 
-   t1 = analysis.variables["TMP_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   t1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    t = t1[:,lat_box1:lat_box2,lon_box1:lon_box2]
    del t1
 
-   avort1 = analysis.variables["ABSV_P0_L100_GLL0"][lev_index_low:lev_index_hi+1,:,:]
+   avort1 = analysis.variables["ABSV_P0_L100_GLL0"][0,lev_index_low:lev_index_hi+1,:,:]
    avort = avort1[:,lat_box1:lat_box2,lon_box1:lon_box2]
    del avort1
 

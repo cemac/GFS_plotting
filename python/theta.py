@@ -143,7 +143,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["TMP_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["TMP_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -240,7 +240,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   theta1 = analysis.variables["TMP_P0_L100_GLL0"][lev_index,:,:]*((1000.0/float(lev_hPa))**0.286)
+   theta1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev_index,:,:]*((1000.0/float(lev_hPa))**0.286)
    theta_temp1 = theta1[lat_box1:lat_box2,0:lon_box1]
    theta_temp2 = theta1[lat_box1:lat_box2,lon_box2:lon_box3]
    theta = np.concatenate((theta_temp2,theta_temp1),axis=1)
@@ -251,7 +251,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   theta1 = analysis.variables["TMP_P0_L100_GLL0"][lev_index,:,:]*((1000.0/float(lev_hPa))**0.286)
+   theta1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev_index,:,:]*((1000.0/float(lev_hPa))**0.286)
    theta = theta1[lat_box1:lat_box2,lon_box1:lon_box2]
    del theta1
    theta = smth9(theta, 0.5, 0.25)

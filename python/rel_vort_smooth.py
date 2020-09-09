@@ -143,7 +143,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["ABSV_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["ABSV_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -240,7 +240,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   vort1 = analysis.variables["ABSV_P0_L100_GLL0"][lev_index,:,:]
+   vort1 = analysis.variables["ABSV_P0_L100_GLL0"][0,lev_index,:,:]
    vort_temp1 = vort1[lat_box1:lat_box2,0:lon_box1]
    vort_temp2 = vort1[lat_box1:lat_box2,lon_box2:lon_box3]
    vort = np.concatenate((vort_temp2,vort_temp1),axis=1)
@@ -250,7 +250,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   vort1 = analysis.variables["ABSV_P0_L100_GLL0"][lev_index,:,:]
+   vort1 = analysis.variables["ABSV_P0_L100_GLL0"][0,lev_index,:,:]
    vort = vort1[lat_box1:lat_box2,lon_box1:lon_box2]
    del vort1
 

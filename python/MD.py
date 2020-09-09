@@ -94,7 +94,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["TMP_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["TMP_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -202,7 +202,7 @@ for i in range(0, len(lat)):
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][:,:]
+   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][0,:,:]
    PWAT_temp1 = PWAT1[lat_box1:lat_box2,0:lon_box1]
    PWAT_temp2 = PWAT1[lat_box1:lat_box2,lon_box2:lon_box3]
    PWAT = np.concatenate((PWAT_temp2,PWAT_temp1),axis=1)
@@ -210,7 +210,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del PWAT_temp1
    del PWAT_temp2
 
-   Zsurf1 = analysis.variables["HGT_P0_L1_GLL0"][:,:]
+   Zsurf1 = analysis.variables["HGT_P0_L1_GLL0"][0,:,:]
    Zsurf_temp1 = Zsurf1[lat_box1:lat_box2,0:lon_box1]
    Zsurf_temp2 = Zsurf1[lat_box1:lat_box2,lon_box2:lon_box3]
    Zsurf = np.concatenate((Zsurf_temp2,Zsurf_temp1),axis=1)
@@ -218,7 +218,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del Zsurf_temp1
    del Zsurf_temp2
 
-   TEMP1 = analysis.variables["TMP_P0_L100_GLL0"][lev1_index,:,:]
+   TEMP1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev1_index,:,:]
    TEMP_temp1 = TEMP1[lat_box1:lat_box2,0:lon_box1]
    TEMP_temp2 = TEMP1[lat_box1:lat_box2,lon_box2:lon_box3]
    TEMP = np.concatenate((TEMP_temp2,TEMP_temp1),axis=1)
@@ -228,15 +228,15 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
  
-   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][:,:]
+   PWAT1 = analysis.variables["PWAT_P0_L200_GLL0"][0,:,:]
    PWAT = PWAT1[lat_box1:lat_box2,lon_box1:lon_box2]
    del PWAT1
 
-   Zsurf1 = analysis.variables["HGT_P0_L1_GLL0"][:,:]
+   Zsurf1 = analysis.variables["HGT_P0_L1_GLL0"][0,:,:]
    Zsurf = Zsurf1[lat_box1:lat_box2,lon_box1:lon_box2]
    del Zsurf1
 
-   TEMP1 = analysis.variables["TMP_P0_L100_GLL0"][lev1_index,:,:]
+   TEMP1 = analysis.variables["TMP_P0_L100_GLL0"][0,lev1_index,:,:]
    TEMP = TEMP1[lat_box1:lat_box2,lon_box1:lon_box2]
    del TEMP1
 

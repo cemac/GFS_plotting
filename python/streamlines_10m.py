@@ -175,7 +175,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   u1 = analysis.variables["UGRD_P0_L103_GLL0"][0,:,:]
+   u1 = analysis.variables["UGRD_P0_L103_GLL0"][0,0,:,:]
    u_temp1 = u1[lat_box1:lat_box2,0:lon_box1]
    u_temp2 = u1[lat_box1:lat_box2,lon_box2:lon_box3]
    u = np.concatenate((u_temp2,u_temp1),axis=1)
@@ -183,7 +183,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del u_temp1
    del u_temp2
 
-   v1 = analysis.variables["VGRD_P0_L103_GLL0"][0,:,:]
+   v1 = analysis.variables["VGRD_P0_L103_GLL0"][0,0,:,:]
    v_temp1 = v1[lat_box1:lat_box2,0:lon_box1]
    v_temp2 = v1[lat_box1:lat_box2,lon_box2:lon_box3]
    v = np.concatenate((v_temp2,v_temp1),axis=1)
@@ -193,11 +193,11 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   u1 = analysis.variables["UGRD_P0_L103_GLL0"][0,:,:]
+   u1 = analysis.variables["UGRD_P0_L103_GLL0"][0,0,:,:]
    u = u1[lat_box1:lat_box2,lon_box1:lon_box2]
    del u1
 
-   v1 = analysis.variables["VGRD_P0_L103_GLL0"][0,:,:]
+   v1 = analysis.variables["VGRD_P0_L103_GLL0"][0,0,:,:]
    v = v1[lat_box1:lat_box2,lon_box1:lon_box2]
    del v1
 

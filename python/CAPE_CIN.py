@@ -226,7 +226,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   CAPE1 = analysis.variables["CAPE_P0_L1_GLL0"][:,:]
+   CAPE1 = analysis.variables["CAPE_P0_L1_GLL0"][0,:,:]
    CAPE_temp1 = CAPE1[lat_box1:lat_box2,0:lon_box1]
    CAPE_temp2 = CAPE1[lat_box1:lat_box2,lon_box2:lon_box3]
    CAPE = np.concatenate((CAPE_temp2,CAPE_temp1),axis=1)
@@ -234,7 +234,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del CAPE_temp1
    del CAPE_temp2
 
-   CIN1 = analysis.variables["CIN_P0_L1_GLL0"][:,:]
+   CIN1 = analysis.variables["CIN_P0_L1_GLL0"][0,:,:]
    CIN_temp1 = CIN1[lat_box1:lat_box2,0:lon_box1]
    CIN_temp2 = CIN1[lat_box1:lat_box2,lon_box2:lon_box3]
    CIN = np.concatenate((CIN_temp2,CIN_temp1),axis=1)
@@ -244,11 +244,11 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del CIN_temp2
 
 else:
-   CAPE1 = analysis.variables["CAPE_P0_L1_GLL0"][:,:]
+   CAPE1 = analysis.variables["CAPE_P0_L1_GLL0"][0,:,:]
    CAPE = CAPE1[lat_box1:lat_box2,lon_box1:lon_box2]
    del(CAPE1)
 
-   CIN1 = analysis.variables["CIN_P0_L1_GLL0"][:,:]
+   CIN1 = analysis.variables["CIN_P0_L1_GLL0"][0,:,:]
    CIN = CIN1[lat_box1:lat_box2,lon_box1:lon_box2]
    CIN = smth9(CIN, 0.5, 0.25)
    del(CIN1)

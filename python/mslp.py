@@ -229,7 +229,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   mslp1 = analysis.variables["PRMSL_P0_L101_GLL0"][:,:]/100.0
+   mslp1 = analysis.variables["PRMSL_P0_L101_GLL0"][0,:,:]/100.0
    mslp_temp1 = mslp1[lat_box1:lat_box2,0:lon_box1]
    mslp_temp2 = mslp1[lat_box1:lat_box2,lon_box2:lon_box3]
    mslp = np.concatenate((mslp_temp2,mslp_temp1),axis=1)
@@ -240,7 +240,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   mslp1 = analysis.variables["PRMSL_P0_L101_GLL0"][:,:]/100.0
+   mslp1 = analysis.variables["PRMSL_P0_L101_GLL0"][0,:,:]/100.0
    mslp = mslp1[lat_box1:lat_box2,lon_box1:lon_box2]
    del mslp1
    mslp = smth9(mslp, 0.5, 0.25)

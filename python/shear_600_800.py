@@ -95,7 +95,7 @@ a_fili = "analysis_gfs_4_%s_%s00_000.nc" % (init_dt[:8], init_dt[8:10])
 
 analysis = nio.open_file(diri+a_fili)
 
-level_dim = analysis.variables["UGRD_P0_L100_GLL0"].dimensions[0]
+level_dim = [d for d in analysis.variables["UGRD_P0_L100_GLL0"].dimensions if d.startswith("lv")][0]
 
 levs_p1 = analysis.variables[level_dim]
 levs_p = ['{:.0f}'.format(x) for x in levs_p1[:]/100.0]
@@ -193,7 +193,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   u11 = analysis.variables["UGRD_P0_L100_GLL0"][lev1_index,:,:]
+   u11 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev1_index,:,:]
    u1_temp1 = u11[lat_box1:lat_box2,0:lon_box1]
    u1_temp2 = u11[lat_box1:lat_box2,lon_box2:lon_box3]
    u1 = np.concatenate((u1_temp2,u1_temp1),axis=1)
@@ -201,7 +201,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del u1_temp1
    del u1_temp2
 
-   v11 = analysis.variables["VGRD_P0_L100_GLL0"][lev1_index,:,:]
+   v11 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev1_index,:,:]
    v1_temp1 = v11[lat_box1:lat_box2,0:lon_box1]
    v1_temp2 = v11[lat_box1:lat_box2,lon_box2:lon_box3]
    v1 = np.concatenate((v1_temp2,v1_temp1),axis=1)
@@ -209,7 +209,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del v1_temp1
    del v1_temp2
 
-   u21 = analysis.variables["UGRD_P0_L100_GLL0"][lev2_index,:,:]
+   u21 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev2_index,:,:]
    u2_temp1 = u21[lat_box1:lat_box2,0:lon_box1]
    u2_temp2 = u21[lat_box1:lat_box2,lon_box2:lon_box3]
    u2 = np.concatenate((u2_temp2,u2_temp1),axis=1)
@@ -217,7 +217,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
    del u2_temp1
    del u2_temp2
 
-   v21 = analysis.variables["VGRD_P0_L100_GLL0"][lev2_index,:,:]
+   v21 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev2_index,:,:]
    v2_temp1 = v21[lat_box1:lat_box2,0:lon_box1]
    v2_temp2 = v21[lat_box1:lat_box2,lon_box2:lon_box3]
    v2 = np.concatenate((v2_temp2,v2_temp1),axis=1)
@@ -227,19 +227,19 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   u11 = analysis.variables["UGRD_P0_L100_GLL0"][lev1_index,:,:]
+   u11 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev1_index,:,:]
    u1 = u11[lat_box1:lat_box2,lon_box1:lon_box2]
    del u11
 
-   v11 = analysis.variables["VGRD_P0_L100_GLL0"][lev1_index,:,:]
+   v11 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev1_index,:,:]
    v1 = v11[lat_box1:lat_box2,lon_box1:lon_box2]
    del v11
 
-   u21 = analysis.variables["UGRD_P0_L100_GLL0"][lev2_index,:,:]
+   u21 = analysis.variables["UGRD_P0_L100_GLL0"][0,lev2_index,:,:]
    u2 = u21[lat_box1:lat_box2,lon_box1:lon_box2]
    del u21
 
-   v21 = analysis.variables["VGRD_P0_L100_GLL0"][lev2_index,:,:]
+   v21 = analysis.variables["VGRD_P0_L100_GLL0"][0,lev2_index,:,:]
    v2 = v21[lat_box1:lat_box2,lon_box1:lon_box2]
    del v21
 

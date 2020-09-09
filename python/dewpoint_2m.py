@@ -174,7 +174,7 @@ else:
 
 if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr)) <= 1:
 
-   DPTMP21 = analysis.variables["DPT_P0_L103_GLL0"][:,:]
+   DPTMP21 = analysis.variables["DPT_P0_L103_GLL0"][0,:,:]
    DPTMP2_temp1 = DPTMP21[lat_box1:lat_box2,0:lon_box1]
    DPTMP2_temp2 = DPTMP21[lat_box1:lat_box2,lon_box2:lon_box3]
    DPTMP2 = np.concatenate((DPTMP2_temp2,DPTMP2_temp1),axis=1)
@@ -184,7 +184,7 @@ if (np.sign(lonbl) + np.sign(lontr)) >= -1 and (np.sign(lonbl) + np.sign(lontr))
 
 else:
 
-   DPTMP21 = analysis.variables["DPT_P0_L103_GLL0"][:,:]
+   DPTMP21 = analysis.variables["DPT_P0_L103_GLL0"][0,:,:]
    DPTMP2 = DPTMP21[lat_box1:lat_box2,lon_box1:lon_box2]
    del DPTMP21
 
