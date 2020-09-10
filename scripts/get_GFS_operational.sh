@@ -3,6 +3,11 @@
 # Script for downloading GFS forecast data (GRIB files).
 #
 
+if [[ -z $USER_EMAIL ]]; then
+    echo "Must provide USER_EMAIL in environment" 1>&2
+    exit 1
+fi
+
 if [ "$#" -eq  "1" ]
 then
    SWIFT_GFS=$1
@@ -61,11 +66,9 @@ FTP_BATCH=get_GFS.batch${YYYYMMDD}${HH}
 FORE_TERMS="000 "$( cat ${SWIFT_GFS}/controls/namelist | grep "fore:" | awk -F: '{print $2}' | tr ',' ' ')
 RESOL=0p50
 
-EMAIL="your_email_here"
-
 # echo commands to connect to NCEP to download latest GFS data to the FTP batch file named above make the FTP batch fiel executable and run it
 echo ftp -v -n ftp.ncep.noaa.gov \<\< \\FINFTP > $FTP_BATCH
-echo user anonymous $EMAIL >> $FTP_BATCH
+echo user anonymous $USER_EMAIL >> $FTP_BATCH
 echo bin >> $FTP_BATCH
 echo prompt >> $FTP_BATCH
 echo cd pub/data/nccf/com/gfs/prod >> $FTP_BATCH
@@ -104,7 +107,7 @@ do
    then
       rm -rf $FTP_BATCH
       echo ftp -v -n ftp.ncep.noaa.gov \<\< \\FINFTP > $FTP_BATCH
-      echo user anonymous $EMAIL >> $FTP_BATCH
+      echo user anonymous $USER_EMAIL >> $FTP_BATCH
       echo bin >> $FTP_BATCH
       echo prompt >> $FTP_BATCH
       echo cd pub/data/nccf/com/gfs/prod >> $FTP_BATCH
